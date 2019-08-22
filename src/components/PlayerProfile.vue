@@ -1,6 +1,6 @@
 <template>
   <div class="hello" v-if="player">
-    <div class='row'>
+    <div class='row stats'>
       <div class='col-4'>
         <img class="profile_image" :src="getImgURL()" />
       </div>
@@ -14,12 +14,25 @@
       Position: {{ player.primaryPosition.abbreviation }}<br />
       </div>
     </div>
-    <div v-if="player.stats.length > 0" class='row'>
+    <div v-if="player.stats.length > 0" class='align-left'>
       <div v-for="(stat, index) in player.stats" :key="index">
-        {{ stat.group.displayName }}
-        <div v-for="(split, index2) in stat.splits" :key="index2">
-          {{ split }}
+        <div class="row">
+          <h1 class='position'>{{ stat.group.displayName }}</h1>
         </div>
+        <div class='stats' v-for="(split, index2) in stat.splits" :key="index2">
+            <div class="row">
+              <span class='position'>{{ split.season }} Season</span>
+            </div>
+            <div class='row' >
+              <div v-for="(theStat, statIndex) in split.stat" :key="statIndex">
+                <div v-if="(Object.keys(theStat).length === 0)" class='col-sm'>
+                  <span class='position'>{{ statIndex }}:&nbsp;</span>
+                  <span>{{ theStat }}</span>
+                </div>
+              </div>
+            </div>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -29,7 +42,7 @@
 export default {
   name: 'PlayerProfile',
   props: {
-    playerID: Number
+    playerID: String
   },
   data() {
     return {
@@ -68,20 +81,15 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style>
+
+.position{
+  font-weight: bold;
+  text-transform: capitalize;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.stats {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 </style>

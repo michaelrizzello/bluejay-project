@@ -1,8 +1,8 @@
 <template>
   <div class="hello" v-if="teams">
-    <div v-for= "(team, index) in teams" :key="index">
+    <div v-for= "(team, index) in teams" :key="index" class='align-left'>
       <img class="team_logo" :src="getImgURL(team.id)" />
-      <a @click="showRoster(team.id)">{{ team.name }}</a>
+      <span class='link' @click="showRoster(team)">{{ team.name }}</span>
     </div>
   </div>
 </template>
@@ -39,28 +39,9 @@ export default {
       })
       .catch(error => console.error('ERROR getTableData: '+error));      
     },
-    showRoster(id) {
-      console.log(id);
-      this.$router.push({name: 'team', params: {teamID: id}});     
+    showRoster(team) {
+      this.$router.push({name: 'team', params: {teamID: ""+ team.id, teamName: team.name}});     
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

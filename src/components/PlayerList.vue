@@ -1,8 +1,19 @@
 <template>
   <div class="hello" v-if="players">
     <img class="team_logo" :src="getImgURL()" />
-    <div v-for= "(player, index) in players" :key="index">
-      <a @click="showPlayerProfile(player.person.id)">{{ player.person.fullName }}</a>
+    <div class='row' v-for= "(player, index) in players" :key="index">
+      <div class="col-3">
+        <span class='link' @click="showPlayerProfile(player.person.id)">{{ player.person.fullName }}</span>
+      </div>
+      <div class="col-2">
+       {{ player.position.abbreviation }}
+      </div>
+      <div class="col-2">
+       #{{ player.jerseyNumber }}
+      </div>
+      <div class="col-2">
+       {{ player.status.description }}
+      </div>
     </div>
   </div>
 </template>
@@ -11,7 +22,7 @@
 export default {
   name: 'PlayerList',
   props: {
-    teamID: Number
+    teamID: String
   },
   data() {
     return {
@@ -19,13 +30,29 @@ export default {
     };
   },
   mounted: function() {
-    console.log(this.teamID);
+    this.lookupTeam();
     this.getPlayers();
   },
   methods: {
     getImgURL() {
       var image = "https://www.mlbstatic.com/team-logos/" + this.teamID + ".svg";
       return image;
+    },
+    lookupTeam() {
+      var url = this.$API + "/api/v1/teams/" + this.teamID;
+      fetch(url, {
+        method: 'GET',
+      })
+      .then(stream => stream.json())
+      .then(response => {
+        if(response.error){
+          this.postResults = 'Sorry '+response.error;
+        } 
+        else{
+          this.$parent.$emit("headingChange", response.teams[0].name)
+        } 
+      })
+      .catch(error => console.error('ERROR getTableData: '+error));      
     },
     getPlayers() {
       var url = this.$API + "/api/v1/teams/" + this.teamID + "/roster";
@@ -39,31 +66,14 @@ export default {
         } 
         else{
           this.players = response.roster;
+
         } 
       })
       .catch(error => console.error('ERROR getTableData: '+error));      
     },
     showPlayerProfile(id) {
-      this.$router.push({name: 'player', params: {playerID: id}});     
+      this.$router.push({name: 'player', params: {playerID: ""+id}});     
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

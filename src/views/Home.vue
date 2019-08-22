@@ -16,6 +16,7 @@ export default {
         TeamList
     },
 	mounted: function () {
+        this.$emit('headingChange', "Teams");
     }
     
 };

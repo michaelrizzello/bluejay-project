@@ -23,7 +23,7 @@ export default {
   },  
   data() {
     return {
-      navbarheading: 'Blue Jays',
+      navbarheading: '',
       backsrc: null,
       backsrcprev: null
     }
@@ -43,7 +43,7 @@ export default {
       this.$router.push({name: this.backsrc}); 
       this.setBackButton(this.backsrcprev);
       if(!this.backsrc){
-        this.setHeading('Blue Jays');
+        // this.setHeading('Blue Jays');
       }
     }
   }
@@ -86,13 +86,6 @@ export default {
 .table-responsive{
     -webkit-overflow-scrolling: touch;
     padding-bottom: 150px;
-}
-.fixed-bottom{
-  /* workaround to allow iOS devices to render position:fixed properly */
-  transform: translate3d(0,0,0);
-}
-.total button{
-  border-radius: 0;
 }
 .chevron-up{
   background-image: url('/img/chevron-up.svg');
@@ -154,26 +147,10 @@ export default {
     -webkit-animation: webkit-spin 2s infinite linear;
     animation: spin 2s infinite linear;
 }
-.btn-answer {
-  background: transparent;
-  border: none;  
-}
-.red-image {
-  background: url('/img/thumbs-down.svg');
-  width: 85px;
-  height: 100px;
-  background-repeat: no-repeat;
-  background-position: top center;  
-  background-size: 85px 100px;    
-}
 
-.green-image {
-  background: url('/img/thumbs-up.svg');
-  width: 85px;
-  height: 100px;
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: 85px 100px;  
+.link {
+  color: blue;
+  text-decoration: underline;
 }
 @-webkit-keyframes webkit-spin {
     0% {
@@ -184,19 +161,4 @@ export default {
     }  
 }
 @keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}
-.payment_option {
-  padding: 21px;
-}
-
-.payment_option button {
-  border: solid;
-  border-width: 1px;
-  border-color: #2c3e50;
-  background-color: #fff;
-  font-size: 20px;
-}
-
-.text {
-  padding-left: 0px;
-}
 </style>

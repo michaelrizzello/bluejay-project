@@ -1,7 +1,7 @@
 <template>
 	<div class="home">
-		<div class="container"> 
-            <PlayerList :teamID="teamID" />
+		<div class="container" v-if="teamID"> 
+            <PlayerList :teamID="teamID" :teamName="teamName" />
 	  	</div>
 	</div>
 </template>
@@ -13,13 +13,14 @@ import PlayerList from "@/components/PlayerList.vue";
 export default {
     name: "playerlist",
     props: {
-        teamID: Number
+        teamID: String,
+        teamName: String
     },
     components: {
         PlayerList
     },
 	mounted: function () {
-        console.log(this.teamID);
+        this.$emit('headingChange', this.teamName);
     }
     
 };

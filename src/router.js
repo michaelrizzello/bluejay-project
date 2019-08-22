@@ -10,10 +10,11 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   hash: false,
+  base: "bluejays-project",
   routes: [
     { path: "/", name: "home", component: Home },
-    { path: "/team", name: "team", component: PlayerList, props:true },
-    { path: "/player", name: "player", component: PlayerProfile, props:true },
+    { path: "/team/:teamID", name: "team", component: PlayerList, props:true },
+    { path: "/player/:playerID", name: "player", component: PlayerProfile, props:true },
     { path: "*", redirect: "/" } // catch all use case
   ]
 });

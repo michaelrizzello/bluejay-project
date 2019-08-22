@@ -13,12 +13,10 @@ import PlayerProfile from "@/components/PlayerProfile.vue";
 export default {
     name: "playerprofile",
     props: {
-        playerID: Number
+        playerID: String
     },
     components: {
         PlayerProfile
-    },
-	mounted: function () {
     }
     
 };
