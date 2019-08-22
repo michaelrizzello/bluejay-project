@@ -25,7 +25,7 @@
             </div>
             <div class='row' >
               <div v-for="(theStat, statIndex) in split.stat" :key="statIndex">
-                <div v-if="(Object.keys(theStat).length === 0)" class='col-sm'>
+                <div v-if="(Object.keys(theStat).length === 0)" class='col-sm stat_cell'>
                   <span class='position'>{{ statIndex }}:&nbsp;</span>
                   <span>{{ theStat }}</span>
                 </div>
@@ -91,5 +91,10 @@ export default {
 .stats {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.stat_cell {
+  min-width: 200px;
+  max-width: 50px;
 }
 </style>
